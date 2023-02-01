@@ -39,7 +39,7 @@ public class IndexTree {
 		return contains(root, word);
 	}
 
-	public boolean contains(IndexNode root, String word) {
+	public boolean contains(IndexNode root, String word) { // performs a simple search of the BST
 		if(root == null){
 			return false;
 		}
@@ -58,7 +58,7 @@ public class IndexTree {
 	
 
 	public void delete(String word){
-		// 3 cases when deleting a node
+		// 3 cases when deleting a node from a BST:
 		// target node is leaf - adjust it's parents ref to null
 		// target node has one child - change childs grandparent ref to point to child instead of target node
 		// target node has 2 children - replace target node with inorder predecessor to maintain BST property
@@ -85,7 +85,7 @@ public class IndexTree {
 			root.right = delete(root.right, word);
 			return root;
 		}
-		else { // root contains word to be deleted
+		else { // root contains word to be deleted, check which of the three cases this node is apart of
 			if(root.left == null){ // checks if no left child
 				return root.right;
 			}
@@ -93,7 +93,7 @@ public class IndexTree {
 				return root.left;
 			}
 			else {
-				if(root.left.right == null){
+				if(root.left.right == null){  
 					root.word = root.left.word;
 					root.left = root.left.left;
 					return root;
@@ -107,7 +107,7 @@ public class IndexTree {
 
 	}
 
-	public IndexNode findLargestChild(IndexNode root){
+	public IndexNode findLargestChild(IndexNode root){ // finds supplied node's inorder predecessor 
 		if(root.right.right == null){ // if right most node has no children, have reached largest node (right most)
 			IndexNode returnValue = new IndexNode(root.right.word, root.right.list.get(0)); // store this node to be returned
 			root.right = root.right.left;
@@ -139,7 +139,7 @@ public class IndexTree {
 		// add all the words to the tree
 		IndexTree index = new IndexTree();
 		// attach Scanner to file
-		Scanner scannerFile = new Scanner(new File("/Users/Onur/IdeaProjects/CIS-2168/Module7/src/index/shakespeare.txt"));
+		Scanner scannerFile = new Scanner(new File("shakespeare.txt"));
 
 		int lineNumber = 1;
 		while(scannerFile.hasNextLine()){ // for each line in text
